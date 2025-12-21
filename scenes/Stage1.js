@@ -710,8 +710,7 @@ gotoFinish(reason, data = {}) {
   });
 }
 
-// ----------------
- Drawing helpers ----------------
+// ---------------- Drawing helpers ----------------
   uiStyle() {
     return {
       fontFamily: "Arial",
