@@ -220,7 +220,7 @@ class Finish extends Phaser.Scene {
     try {
       const top = await this.jsonp(`${this.API_URL}?action=top`);
       if (!Array.isArray(top)) throw new Error('bad response');
-      this._top = top;
+      this._top = top.filter(r => r && (r.name || '').toString().trim() && Number(r.time) > 0);
       this._status.setText('');
       this.buildTable();
     } catch (e) {
@@ -338,7 +338,7 @@ class Finish extends Phaser.Scene {
 
   updateNameInputState() {
     // Only if qualifies and mission success
-    const shouldHaveInput = this._qualifies && this.result.reason === 'success';
+    const shouldHaveInput = this._qualifies && this.result.reason === 'success' && !this._saved;
     if (!shouldHaveInput) {
       this.disableNameInput();
       this._btnSave.setEnabled(false);
